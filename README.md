@@ -1,5 +1,7 @@
 # ecs-suricata
 
+Because the version of Rob Cowart was outdated and Elastic itself wasn't doing kafka in between, I modded it al together.
+
 This is the first version of a suricata with kibana 7.6.0 using ECS compliant scheme.
 It is compatible with SIEM.
 
