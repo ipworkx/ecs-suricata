@@ -1,0 +1,64 @@
+#---------------------------------------------------------------------------
+filebeat.inputs:
+
+- type: log
+  # Suricata Logs
+
+  paths:
+    - "/var/log/suricata/*.json"
+
+  exclude_files: ['\.gz$']
+  
+  fields:
+    observer: 
+      address: u010.system.ipworkx.loc
+      name: U010
+      ip: 172.16.32.10
+      type: eve
+      os:
+        platform: SELKS
+        family: Debian
+        kernel: 4.9.0-12-amd64 
+        version: 9.12
+      architecture: x86_64
+    
+    kafka_topic: "__raw_suricata"
+    tags: ["suricata","json"]
+
+
+filebeat.config.modules:
+  path: /var/db/beats/filebeat/modules.d/*.yml
+  reload.enabled: false
+
+#---------------------------------------------------------------------------
+processors:
+
+ - add_host_metadata:
+     netinfo.enabled: true
+   
+#---------------------------------------------------------------------------
+
+output.kafka:
+  # message topic selection + partitioning
+  
+  topic: "%{[fields.kafka_topic]}"
+
+  # initial brokers for reading cluster metadata
+  hosts: ["172.16.32.2:9093","172.16.32.5:9093","172.16.32.7:9093"]
+
+  required_acks: 1
+  compression: gzip
+  max_message_bytes: 1000000
+  
+  
+#----------------------------------------------------------------------------
+
+logging.metrics.enabled: false
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat.log
+  keepfiles: 7
+
+xpack.monitoring.enabled: false
+
