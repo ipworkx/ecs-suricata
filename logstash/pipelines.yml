@@ -1,0 +1,9 @@
+# This file is where you define your pipelines. You can define multiple.
+# For more information on multiple pipelines, see the documentation:
+#   https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html
+
+- pipeline.id: suricata
+  path.config: "/etc/logstash/conf.d/suricata/*.conf"
+  pipeline.workers: 1
+  pipeline.batch.size: 128
+
