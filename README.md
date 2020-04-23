@@ -8,4 +8,7 @@ To do this job I used beats
 
 A example filebeat.yml is included 
 
-![Main Screen](link-to-image)
+![Main Screen](https://github.com/ipworkx/ecs-suricata/blob/master/images/Main%20Dashboard%20(Overview)%20-%20Kibana.png)
+
+![Main Screen](https://github.com/ipworkx/ecs-suricata/blob/master/images/Suricata%20Alerts%20(Messages)%20-%20Kibana.png)
+
